@@ -6,7 +6,11 @@ home = File.expand_path('~')
 
 Dir['*'].each do |file|
   next if file =~ /install/
-  target = File.join(home, ".#{file}")
+  if file =~ /bin/
+    target = File.join(home, file)
+  else
+    target = File.join(home, ".#{file}")
+  end
   `ln -s #{File.expand_path file} #{target}`
 end
 

@@ -1,0 +1,7 @@
+require 'redgreen' if RAILS_ENV == "test"
+
+class BigDecimal
+  def inspect
+    "BD: #{to_s}"
+  end
+end

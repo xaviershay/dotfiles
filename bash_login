@@ -1,0 +1,143 @@
+alias gi="sudo gem install"
+alias pi="sudo port install"
+
+alias up="svn up"
+alias co="svn co"
+alias rv="svn revert"
+alias td="svn diff | mate"
+alias sd="svn diff | cdiff"
+alias aa='svn status | grep "^\?" | awk "{print \$2}" | xargs svn add'
+
+function st() {
+  git branch &>/dev/null
+  if [ $? -eq 0 ]; then
+    git status;
+  else
+    svn status;
+  fi
+}
+
+function ci() {
+  git branch &>/dev/null
+  if [ $? -eq 0 ]; then
+    git commit -m;
+  else
+    svn ci -m;
+  fi
+}
+
+alias gis='git status'
+alias gid='git diff --cached'
+alias gic='git commit -m'
+alias gia='git add'
+alias gir='git checkout master && git svn rebase && git checkout working && git rebase master && git checkout master && git merge working'
+alias giw='git checkout master && git svn dcommit && git checkout working'
+
+alias go="cd ~/Code/redbubble-trunk.git"
+alias rbb="cd ~/Code/roboblog"
+
+alias rmi='rake db:migrate'
+alias rtc='rake tmp:clear'
+alias rlf='rake db:fixtures:load'
+alias v='/opt/local/bin/gvim'
+alias trunk_url='echo svn+ssh://xshay@svn.redbubble.com/home/svn/redbubble/trunk'
+alias t='script/specrb'
+
+alias staginate="ssh xshay@omega.redbubble.com 'cd trunk && svn up && cap -f config/cap/staging.rb deploy_with_migrations'"
+
+function rtu() { 
+  if [ "$#" = 2 ]; then
+    ruby test/unit/$1_test.rb -n $2;
+  else
+    if [ "$#" = 1 ]; then
+      ruby test/unit/$1_test.rb;
+    else
+      rake test:units;
+    fi
+  fi
+}
+
+function rtf() { 
+  if [ "$#" = 2 ]; then
+    ruby test/functional/$1_controller_test.rb -n $2;
+  else
+    if [ "$#" = 1 ]; then
+      ruby test/functional/$1_controller_test.rb;
+    else
+      rake test:functionals;
+    fi
+  fi
+}
+
+
+#function rtu() { 
+#  if [ "$#" = 2 ]; then
+#    ruby_fork_client -r test/unit/$1_test.rb -- -n $2;
+#  else
+#    if [ "$#" = 1 ]; then
+#      ruby_fork_client -r test/unit/$1_test.rb;
+#    else
+#      rake test:units;
+#    fi
+#  fi
+#}
+#
+#function rtf() { 
+#  if [ "$#" = 2 ]; then
+#    ruby_fork_client -r test/functional/$1_controller_test.rb -- -n $2;
+#  else
+#    if [ "$#" = 1 ]; then
+#      ruby_fork_client -r test/functional/$1_controller_test.rb;
+#    else
+#      rake test:functionals;
+#    fi
+#  fi
+#}
+
+alias rta="rake test && echo Full test complete | growlnotify"
+alias rfs="RAILS_ENV='test' ruby_fork -r rubygems -e 'require \"config/environment.rb\"'"
+alias s="./script/server"
+alias c="./script/console"
+
+alias sbl="source ~/.bash_login"
+alias searchfu="find . -path '*/.svn' -prune -o -path '*/vendor' -o \( -size -100000c -type f \) -print0 | xargs -0 grep -ne"
+
+function lc
+{ 
+history | tail -n 2 | head -n 1 | cut -c 8- 
+};
+
+function growl() 
+{ 
+echo -e $'\e]9;'${1}'\007' ; return ; 
+}
+
+export EXCLUDE_SLOW_TESTS=1
+export PATH="~/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/bin:$PATH"
+export EDITOR="vim"
+export SVN_SSH="ssh -l xshay"
+
+export PS1="$ "
+export PS1='\[\e]2;[bash] \h:]$PWD\[\a\]\[\e]1;\]$(history | tail -n 1 | cut -c 8- )\[\a\]\w> '
+export PS1='\w> '
+export PS1='\w $(git branch &>/dev/null; if [ $? -eq 0 ]; then echo "($(git branch | grep '^*' |sed s/\*\ //))"; fi)\$ '
+export LC_ALL=en_AU.UTF-8
+
+function l() {
+  export PS1="\[\e]2;[bash] \h:]$PWD\[\a\]\[\e]1;\]$1\[\a\]\w> "
+}
+
+test -r /sw/bin/init.sh && . /sw/bin/init.sh
+
+export CODE="$HOME/Code"
+p() {
+  cd "$CODE/$1"
+}
+
+_p() {
+  COMPREPLY=( $(compgen -W "$(ls $CODE | sort | uniq | grep -vE \"^_\")" -- ${COMP_WORDS[COMP_CWORD]} ) )
+}
+
+complete -F _p p
+complete -C ~/bin/rake-complete.rb -o default rake
+

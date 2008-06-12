@@ -23,7 +23,7 @@ rakefile = RAKEFILES.detect { |rf| File.file?(File.join(Dir.pwd, rf)) }
 rakefile_path = File.join( Dir.pwd, rakefile )
 cache_file = File.join( cache_dir, rakefile_path.gsub( %r{/}, '_' ) )
 if File.exist?( cache_file ) &&
-   File.mtime( cache_file ) >= File.mtime( rakefile )
+   File.mtime( cache_file ) >= (Dir['lib/tasks/*.rake'] << rakefile).collect {|x| File.mtime(x) }.max
   task_lines = File.read( cache_file )
 else
   task_lines = `rake --silent --tasks`

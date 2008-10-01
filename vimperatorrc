@@ -1,0 +1,1 @@
+command! po open https://secure.redbubble.com/admin/purchase_orders/<args>

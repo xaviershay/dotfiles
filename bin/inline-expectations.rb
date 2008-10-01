@@ -7,11 +7,11 @@ VIM::command("match none")
 VIM::command("2match none")
 VIM::command("highlight StatusLine guifg=black guibg=grey")
 
-if file_name =~ %r{app/models/(.*).rb$}
-  expect_file = "expectations/models/#{$1}_expect.rb"
-  highlight_errors = false
-  file_name = file_name.gsub(%r{app/models/(.*).rb$}, '') + expect_file
-end
+#if file_name =~ %r{app/models/(.*).rb$}
+#  expect_file = "expectations/models/#{$1}_expect.rb"
+#  highlight_errors = false
+#  file_name = file_name.gsub(%r{app/models/(.*).rb$}, '') + expect_file
+#end
 
 if File.open(file_name).grep(/^\s*Expectations/).empty?
   print "Not an expectations file"

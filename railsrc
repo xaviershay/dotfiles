@@ -5,3 +5,9 @@ class BigDecimal
     "BD: #{to_s}"
   end
 end
+
+class ActiveRecord::Base
+  def self.find_last
+    find(:first, :order => 'created_at DESC')
+  end
+end

@@ -13,3 +13,9 @@ vmap <F2> !format_hash.rb<CR>
 map <C-S> :w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
 imap <C-S> <Esc>:w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
 set ls=2
+map <C-T> :FuzzyFinderTextMate<CR>
+
+vmap o :s/^/# /<CR>
+vmap i :s/^# //<CR>
+
+set guifont=Monaco:h10

@@ -1,1 +1,2 @@
 command! po open https://secure.redbubble.com/admin/purchase_orders/<args>
+command! rbw open http://www.redbubble.com/works/show/<args>

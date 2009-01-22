@@ -19,3 +19,4 @@ vmap o :s/^/# /<CR>
 vmap i :s/^# //<CR>
 
 set guifont=Monaco:h10
+set vb

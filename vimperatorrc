@@ -1,2 +1,3 @@
-command! po open https://secure.redbubble.com/admin/purchase_orders/<args>
-command! rbw open http://www.redbubble.com/works/show/<args>
+command! po tabopen https://secure.redbubble.com/admin/purchase_orders/<args>
+command! rbw tabopen http://www.redbubble.com/works/show/<args>
+command! javascript liberator.beep = function() { return false; }

@@ -21,3 +21,11 @@
   untracked = cyan
 [core]
   excludesfile = /Users/xavier/.gitignore
+[alias]
+	sh = !git-sh
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p

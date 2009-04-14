@@ -11,7 +11,8 @@ syn on " I think this is a duplicate of syntax=on above
 
 vmap <F2> !format_hash.rb<CR>
 map <C-S> :w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
-map <F3> :!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>
+map <F3> :w<CR>:!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>
+imap <F3> <Esc>:w<CR>:!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>
 imap <C-S> <Esc>:w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
 set ls=2
 map <C-T> :FuzzyFinderTextMate<CR>

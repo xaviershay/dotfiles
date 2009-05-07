@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby -w
+# http://snipplr.com/view/5814/command-line-currency-converter/
+
+unless ARGV.length == 3
+  puts "\tUsage :\n\t\t#{File.basename($0)} 100 eur usd"
+  exit
+end
+
+require 'rubygems'
+require 'open-uri'
+require 'hpricot'
+
+url = "http://xurrency.com/#{ARGV.join('/')}/feed"
+doc=Hpricot(open(url).read)
+value = doc/'dc:value'
+puts value.inner_html

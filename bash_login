@@ -1,3 +1,4 @@
+alias mruby='/usr/bin/ruby'
 alias gi="sudo gem install"
 alias pi="sudo port install"
 
@@ -33,13 +34,13 @@ alias gia='git add'
 alias gir='git checkout master && git svn rebase && git checkout working && git rebase master && git checkout master && git merge working'
 alias giw='git checkout master && git svn dcommit && git checkout working'
 
-alias go="cd ~/Code/redbubble-trunk.git"
+alias go="cd ~/Code/clear-exchange"
 alias rbb="cd ~/Code/roboblog"
 
 alias rmi='rake db:migrate'
 alias rtc='rake tmp:clear'
 alias rlf='rake db:fixtures:load'
-alias v='/opt/local/bin/gvim'
+alias v='~/bin/mvim'
 alias trunk_url='echo svn+ssh://xshay@svn.redbubble.com/home/svn/redbubble/trunk'
 alias t='script/specrb'
 

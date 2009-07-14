@@ -10,7 +10,7 @@
 # ab  => 2
 # abc => 3
 #
-# http://rhnh.net
+# From github.com/xaviershay/dotfiles
 
 lines = []
 while line = gets

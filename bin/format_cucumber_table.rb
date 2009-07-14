@@ -1,4 +1,15 @@
 #!/usr/bin/env ruby
+
+# Formats cucumber multi-line tables
+# | a | b |
+# | ab | ab |
+#
+# becomes
+# | a  | b  |
+# | ab | ab |
+#
+# From github.com/xaviershay/dotfiles
+
 indent = nil
 lines = []
 while line = gets

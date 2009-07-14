@@ -1,4 +1,10 @@
 #!/usr/bin/env ruby
+
+# Formats a ruby comment block to be block justified to a max width. Just
+# like this text here.
+#
+# From github.com/xaviershay/dotfiles
+
 lines = []
 while line = gets
   lines << line

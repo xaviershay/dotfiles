@@ -10,6 +10,8 @@ colors desert     " totally sexier than white background
 syn on " I think this is a duplicate of syntax=on above
 
 vmap <F2> !format_hash.rb<CR>
+vmap <F4> !format_cucumber_table.rb<CR>
+vmap <F5> !format_comment_block.rb<CR>
 map <C-S> :w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
 map <F3> :w<CR>:!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>
 imap <F3> <Esc>:w<CR>:!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>

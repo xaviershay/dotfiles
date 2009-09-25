@@ -9,15 +9,20 @@ set wildmode=longest,list " Better tab completion for :e and friends
 colors desert     " totally sexier than white background
 syn on " I think this is a duplicate of syntax=on above
 
+filetype on
+filetype plugin on
+
+"Disable help key coz I mash it when I try to hit Esc
+map <F1> <Esc>
+imap <F1> <Esc>
+
 vmap <F2> !format_hash.rb<CR>
 vmap <F4> !format_cucumber_table.rb<CR>
 vmap <F5> !format_comment_block.rb<CR>
-map <C-S> :w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
 map <F3> :w<CR>:!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>
 imap <F3> <Esc>:w<CR>:!osascript -e 'tell application "Safari" to do JavaScript "window.location.reload()" in front document'<CR>
-imap <C-S> <Esc>:w<CR>:rubyf ~/bin/inline-expectations.rb<CR>
+
 set ls=2
-map <C-T> :FuzzyFinderTextMate<CR>
 
 vmap o :s/^/# /<CR>
 vmap i :s/^# //<CR>
@@ -29,3 +34,14 @@ set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/cu
 
 nmap <tab> :bn<cr>
 nmap <s-tab> :bp<cr>
+
+"Highlight long lines as an error
+autocmd FileType ruby match Error /\%100v.\+/
+
+"Auto reload this file when editing it
+au! BufWritePost .vimrc source %
+
+"Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
+au BufRead,BufNewFile *.rb set filetype=ruby.rails
+
+source ~/.vim/snippets/support_functions.vim

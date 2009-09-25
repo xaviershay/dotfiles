@@ -29,5 +29,6 @@
   co = checkout
   df = diff
   lg = log -p
+  pl = pull --rebase
 [svn]
   rmdir = true

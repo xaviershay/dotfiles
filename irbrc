@@ -5,6 +5,12 @@ irb_standalone_running = !script_console_running && !rails_running
 if script_console_running
   require 'logger'
   Object.const_set(:RAILS_DEFAULT_LOGGER, Logger.new(STDOUT))
+
+  def factory
+    require 'sham'
+    require 'machinist'
+    require 'spec/blueprints'
+  end
   
   def mq
     include ActiveMessaging::MessageSender

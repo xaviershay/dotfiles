@@ -1,4 +1,8 @@
+alias myip="ifconfig | grep 'inet '"
 alias mruby='/usr/bin/ruby'
+alias rby="~/.multiruby/install/v1_9_1_0/bin/ruby"
+alias snc="~/.multiruby/install/v1_9_1_0/bin/ruby -S spec"
+alias cuke19="~/.multiruby/install/v1_9_1_0/bin/cucumber"
 alias gi="sudo gem install"
 alias pi="sudo port install"
 
@@ -31,11 +35,10 @@ alias gis='git status'
 alias gid='git diff --cached'
 alias gic='git commit -m'
 alias gia='git add'
-alias gir='git checkout master && git svn rebase && git checkout working && git rebase master && git checkout master && git merge working'
-alias giw='git checkout master && git svn dcommit && git checkout working'
+alias gir='git checkout cuke && git pull origin cuke && git checkout cuke-working && git rebase cuke && git checkout cuke && git merge cuke-working'
+alias giw='git checkout cuke && git push origin cuke && git checkout cuke-working'
 
-alias go="cd ~/Code/clear-exchange"
-alias rbb="cd ~/Code/roboblog"
+alias go="cd ~/Code/amani/kituo"
 
 alias rmi='rake db:migrate'
 alias rtc='rake tmp:clear'
@@ -114,7 +117,7 @@ echo -e $'\e]9;'${1}'\007' ; return ;
 }
 
 export EXCLUDE_SLOW_TESTS=1
-export PATH="~/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/bin:$PATH"
+export PATH="~/bin:/opt/rabbitmq_server-1.6.0/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/bin:$PATH"
 export EDITOR="vim"
 export SVN_SSH="ssh -l xshay"
 

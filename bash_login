@@ -145,3 +145,10 @@ _p() {
 complete -F _p p
 complete -C ~/bin/rake-complete.rb -o default rake
 
+
+# -- start rip config -- #
+RIPDIR=/Users/xavier/.rip
+RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
+PATH="$PATH:$RIPDIR/active/bin"
+export RIPDIR RUBYLIB PATH
+# -- end rip config -- #

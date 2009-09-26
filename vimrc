@@ -42,6 +42,6 @@ autocmd FileType ruby match Error /\%100v.\+/
 au! BufWritePost .vimrc source %
 
 "Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
-au BufRead,BufNewFile *.rb set filetype=ruby.rails
+au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 
 source ~/.vim/snippets/support_functions.vim

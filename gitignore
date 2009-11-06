@@ -1,3 +1,5 @@
 *.swp
 *.swo
 *.DS_Store
+db/bootstrap/migrated.sql
+webrat-*.html

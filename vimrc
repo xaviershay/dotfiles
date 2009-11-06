@@ -44,4 +44,7 @@ au! BufWritePost .vimrc source %
 "Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
 au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 
+"Auto strip trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
 source ~/.vim/snippets/support_functions.vim

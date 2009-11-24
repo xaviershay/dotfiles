@@ -8,27 +8,12 @@ class BigDecimal
   end
 end
 
-require 'hirb'
-
-Hirb.enable
-
-if false
-  # from: http://pivotallabs.com/users/alex/blog/articles/865-monkey-patch-du-jour
-  module ActiveRecord
-    module ConnectionAdapters
-      class AbstractAdapter
-        def log_info(sql, name, ms)
-          if @logger && @logger.debug?
-            @logger.debug("#{sql}, #{name}, #{ms}")
-            c = caller.detect{|line| line !~ /(activerecord|active_support|__DELEGATION__|\/lib\/|\/vendor\/plugins|\/vendor\/gems)/i}
-            c.gsub!("#{File.expand_path(File.dirname(RAILS_ROOT))}/", '') if defined?(RAILS_ROOT)
-            name = '%s (%.1fms) %s' % [name || 'SQL', ms, c]
-            @logger.debug(format_log_entry(name, sql.squeeze(' ')))
-          end
-        end
-      end
-    end
+class Money
+  def inspect
+    "M: #{to_s}"
   end
 end
 
+require 'hirb'
 
+Hirb.enable :pager => false

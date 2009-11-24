@@ -39,6 +39,9 @@ alias gir='git checkout cuke && git pull origin cuke && git checkout cuke-workin
 alias giw='git checkout cuke && git push origin cuke && git checkout cuke-working'
 
 alias go="cd ~/Code/clear/exchange"
+alias mys="mysql -u root exchange_development"
+alias resetdev="rk db:reset_exchange"
+alias resettest="RAILS_ENV=test rk db:reset_exchange"
 
 alias rmi='rake db:migrate'
 alias rtc='rake tmp:clear'
@@ -49,7 +52,7 @@ alias t='script/specrb'
 
 alias staginate="ssh xshay@omega.redbubble.com 'cd trunk && svn up && cap -f config/cap/staging.rb deploy_with_migrations'"
 
-function rtu() { 
+function rtu() {
   if [ "$#" = 2 ]; then
     ruby test/unit/$1_test.rb -n $2;
   else
@@ -61,7 +64,7 @@ function rtu() {
   fi
 }
 
-function rtf() { 
+function rtf() {
   if [ "$#" = 2 ]; then
     ruby test/functional/$1_controller_test.rb -n $2;
   else
@@ -74,7 +77,7 @@ function rtf() {
 }
 
 
-#function rtu() { 
+#function rtu() {
 #  if [ "$#" = 2 ]; then
 #    ruby_fork_client -r test/unit/$1_test.rb -- -n $2;
 #  else
@@ -86,7 +89,7 @@ function rtf() {
 #  fi
 #}
 #
-#function rtf() { 
+#function rtf() {
 #  if [ "$#" = 2 ]; then
 #    ruby_fork_client -r test/functional/$1_controller_test.rb -- -n $2;
 #  else
@@ -107,17 +110,17 @@ alias sbl="source ~/.bash_login"
 alias searchfu="find . -path '*/.svn' -prune -o -path '*/vendor' -o \( -size -100000c -type f \) -print0 | xargs -0 grep -ne"
 
 function lc
-{ 
-history | tail -n 2 | head -n 1 | cut -c 8- 
+{
+history | tail -n 2 | head -n 1 | cut -c 8-
 };
 
-function growl() 
-{ 
-echo -e $'\e]9;'${1}'\007' ; return ; 
+function growl()
+{
+echo -e $'\e]9;'${1}'\007' ; return ;
 }
 
 export EXCLUDE_SLOW_TESTS=1
-export PATH="~/bin:/opt/rabbitmq_server-1.6.0/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/bin:/Applications/LilyPond.app/Contents/Resources/bin:$PATH"
+export PATH="~/bin:/opt/rabbitmq_server-1.6.0/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/bin:/Applications/LilyPond.app/Contents/Resources/bin:/Users/xavier/Code/hadoop-0.20.1/bin:$PATH"
 export EDITOR="vim"
 export SVN_SSH="ssh -l xshay"
 

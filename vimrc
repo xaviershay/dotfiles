@@ -36,7 +36,7 @@ nmap <tab> :bn<cr>
 nmap <s-tab> :bp<cr>
 
 "Highlight long lines as an error
-autocmd FileType ruby match Error /\%100v.\+/
+"autocmd FileType ruby match Error /\%100v.\+/
 
 "Auto reload this file when editing it
 au! BufWritePost .vimrc source %

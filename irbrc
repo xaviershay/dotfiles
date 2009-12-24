@@ -4,14 +4,14 @@ irb_standalone_running = !script_console_running && !rails_running
 
 if script_console_running
   require 'logger'
-  Object.const_set(:RAILS_DEFAULT_LOGGER, Logger.new(STDOUT))
+#  Object.const_set(:RAILS_DEFAULT_LOGGER, Logger.new(STDOUT))
 
   def factory
     require 'sham'
     require 'machinist'
     require 'spec/blueprints'
   end
-  
+
   def mq
     include ActiveMessaging::MessageSender
     self.class.instance_eval { publishes_to :model_events }
@@ -127,7 +127,7 @@ end
 
 class MethodFinder
   @@blacklist = %w(daemonize display exec exit! fork sleep system syscall what?)
-  
+
   def initialize( obj, *args )
     @obj = obj
     @args = args
@@ -135,7 +135,7 @@ class MethodFinder
   def ==( val )
     MethodFinder.show( @obj, val, *@args )
   end
-  
+
   # Find all methods on [anObject] which, when called with [args] return [expectedResult]
   def self.find( anObject, expectedResult, *args, &block )
     stdout, stderr = $stdout, $stderr
@@ -144,19 +144,19 @@ class MethodFinder
     res = anObject.methods.
           select { |name| anObject.method(name).arity <= args.size }.
           select { |name| not @@blacklist.include? name }.
-          select { |name| begin 
-                   anObject._clone_.method( name ).call( *args, &block ) == expectedResult; 
+          select { |name| begin
+                   anObject._clone_.method( name ).call( *args, &block ) == expectedResult;
                    rescue Object; end }
     $stdout, $stderr = stdout, stderr
     res
   end
-  
+
   # Pretty-prints the results of the previous method
   def self.show( anObject, expectedResult, *args, &block)
     find( anObject, expectedResult, *args, &block).each { |name|
-      print "#{anObject.inspect}.#{name}" 
+      print "#{anObject.inspect}.#{name}"
       print "(" + args.map { |o| o.inspect }.join(", ") + ")" unless args.empty?
-      puts " == #{expectedResult.inspect}" 
+      puts " == #{expectedResult.inspect}"
     }
   end
 end
@@ -175,12 +175,12 @@ module Kernel
   def where_is_this_defined(settings={}, &block)
     settings[:debug] ||= false
     settings[:educated_guess] ||= false
-    
+
     events = []
-    
+
     set_trace_func lambda { |event, file, line, id, binding, classname|
       events << { :event => event, :file => file, :line => line, :id => id, :binding => binding, :classname => classname }
-      
+
       if settings[:debug]
         puts "event => #{event}"
         puts "file => #{file}"
@@ -198,7 +198,7 @@ module Kernel
       next unless event[:event] == 'call' or (event[:event] == 'return' and event[:classname].included_modules.include?(ActiveRecord::Associations))
       return "#{event[:classname]} received message '#{event[:id]}', Line \##{event[:line]} of #{event[:file]}"
     end
-    
+
     # def self.crazy_custom_finder
     #  return find(:all......)
     # end
@@ -208,7 +208,7 @@ module Kernel
       event = events[-3]
       return "#{event[:classname]} received message '#{event[:id]}', Line \##{event[:line]} of #{event[:file]}"
     end
-    
+
     return 'Unable to determine where method was defined.'
   end
 

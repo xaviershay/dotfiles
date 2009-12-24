@@ -14,6 +14,36 @@ class Money
   end
 end
 
+class Object
+  def tapp(prefix = nil, &block)
+    block ||= lambda {|x| x }
+    tap {|x|
+      location =  caller[2].split(':')[0..1].join(':')
+      msg      = (prefix ? "#{prefix} - %s" : "%s") % block[x].inspect
+      puts "#{location}:#{msg}"
+    }
+  end
+end
+
+def find_orphaned_records(klass, id)
+  [
+    klass.reflect_on_all_associations(:has_many),
+    klass.reflect_on_all_associations(:has_one)
+  ].flatten.select {|x|
+    !x.options[:as] && !x.options[:through]
+  }.inject({}) {|a, x|
+    records = x.klass.all(:conditions => {
+      x.options[:foreign_key] || "#{klass.to_s.underscore}_id" => id})
+    a.update(x.class_name => records)
+  }
+end
+
+class ActiveRecord::Base
+#  def inspect
+#    "#<#{self.class.to_s} #{id} \"#{to_s}\">"
+#  end
+end
+
 require 'hirb'
 
 Hirb.enable :pager => false

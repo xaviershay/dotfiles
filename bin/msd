@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+action = ARGV[0]
+db = ARGV[1]
+
+if db == 'clear'
+  datadir = '/Volumes/clear/data'
+  unless File.exists?(datadir)
+    puts "Cannot access #{datadir}"
+    exit(1)
+  end
+  extra_args = "--datadir #{datadir}"
+end
+
+server = '/usr/local/Cellar/mysql/5.1.41/share/mysql/mysql.server'
+cmd = "#{server} #{action} #{extra_args}"
+puts cmd
+puts `#{server} #{action} #{extra_args}`
+

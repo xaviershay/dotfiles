@@ -4,3 +4,4 @@
 db/bootstrap/*.sql
 webrat-*.html
 pkg
+spec/spec.opts

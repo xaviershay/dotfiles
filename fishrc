@@ -1,0 +1,45 @@
+set PATH ~/bin $PATH
+set PATH /usr/local/sbin $PATH
+set PATH ~/.gem/ruby/1.8/bin/ $PATH
+set PATH /Applications/LilyPond.app/Contents/Resources/bin $PATH
+
+set fish_greeting ""
+set -c EDITOR "~/bin/mvim --nofork"
+
+set GEM_HOME /usr/local/Cellar/Gems/1.8
+set GEM_PATH /usr/local/Cellar/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/gems
+
+function v; ~/bin/mvim $argv; end;
+function gis; git status $argv; end;
+function gid; git diff --cached $argv; end;
+function gic; git commit -m $argv; end;
+function gia; git add $argv; end;
+
+function rmi; rake db:migrate $argv; end;
+
+function go; cd ~/Code/clear/exchange; end;
+function c; script/console; end;
+function dbc; script/dbconsole; end;
+function s; script/server; end;
+function resetdev; rake db:reset_exchange file=db/bootstrap/live_export_database_dump.sql; end;
+function resettest; env RAILS_ENV=test rake db:reset_exchange; end;
+
+function parse_git_branch
+	sh -c 'git branch --no-color 2> /dev/null' | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+end
+
+function fish_prompt -d "Write out the prompt"
+	# Color writeable dirs green, read-only dirs red
+	if test -w "."
+		printf '%s%s' (set_color green) (prompt_pwd)
+	else
+		printf '%s%s' (set_color red) (prompt_pwd)
+	end
+ 
+	# Print git branch
+	if test -d ".git"
+		printf ' %s%s%s' (set_color normal) (set_color brown) (parse_git_branch)
+	end
+	printf '%s> ' (set_color normal)
+end
+

@@ -1,0 +1,111 @@
+:output:
+  BinGrade:
+    :options:
+      :fields:
+        - id
+        - grain_type
+        - code
+        - description
+  PortStatistic:
+    :options:
+      :fields:
+        - date
+        - port
+        - bin_grade
+        - grain_season
+        - best_offer
+        - best_offer_qty
+        - best_bid
+        - best_bid_qty
+        - total_offer_qty
+        - total_bid_qty
+        - trade_high
+        - trade_low
+        - yesterday_trade_high
+        - yesterday_trade_low
+  Debt:
+    :ancestor: true
+    :options:
+      :fields:
+        - id
+        - ticket_id
+        - trade_id
+        - description
+        - debt_amount_in_cents
+        - debt_gst_in_cents
+        - created_at
+        - state
+  User:
+    :options:
+      :fields:
+        - id
+        - entity
+        - login
+        - email
+        - role
+  Offer:
+    :options:
+      :fields:
+        - id
+        - state
+        - bhc_site
+        - bin_grade
+        - grain_season
+        - price
+        - quantity
+        - owner
+        - created_at
+  Bid:
+    :options:
+      :fields:
+        - id
+        - state
+        - bhc_site
+        - bin_grade
+        - grain_season
+        - price
+        - port_price
+        - quantity
+        - owner
+        - created_at
+  BhcSite:
+    :ancestor: true
+    :options:
+      :fields:
+        - id
+        - bulk_handler
+        - name
+        - state
+        - port
+        - aasm_state
+  Ticket:
+    :options:
+      :fields:
+        - id
+        - state
+        - owner
+        - bhc_site
+        - bin_grade
+        - shrunk_weight
+        - grain_season
+        - created_at
+  Entity:
+    :ancestor: true
+    :options:
+      :fields:
+        - id
+        - name
+        - clear_name
+        - primary_contact_email
+        - primary_contact_phone
+        - state
+  Trade:
+    :options:
+      :fields:
+        - id
+        - created_at
+        - state
+        - bid_id
+        - offer_id
+        - trade_price_per_ton
+        - traded_quantity

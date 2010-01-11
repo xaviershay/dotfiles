@@ -9,6 +9,10 @@ set wildmode=longest,list " Better tab completion for :e and friends
 colors desert     " totally sexier than white background
 syn on " I think this is a duplicate of syntax=on above
 
+if $SHELL =~ 'bin/fish'
+    set shell=/bin/sh
+endif
+
 filetype on
 filetype plugin on
 
@@ -45,6 +49,10 @@ au! BufWritePost .vimrc source %
 au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 
 "Auto strip trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\s\+$//e
 
 source ~/.vim/snippets/support_functions.vim
+
+set grepprg=ack
+set grepformat=%f:%l:%m
+

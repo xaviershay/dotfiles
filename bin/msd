@@ -14,5 +14,5 @@ end
 server = '/usr/local/Cellar/mysql/5.1.41/share/mysql/mysql.server'
 cmd = "#{server} #{action} #{extra_args}"
 puts cmd
-puts `#{server} #{action} #{extra_args}`
+puts `#{cmd}`
 

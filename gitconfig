@@ -30,5 +30,7 @@
   df = diff
   lg = log -p
   pl = pull --rebase
+  up = !sh -c 'git pull --rebase && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+  
 [svn]
   rmdir = true

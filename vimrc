@@ -49,7 +49,7 @@ au! BufWritePost .vimrc source %
 au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 
 "Auto strip trailing whitespace
-"autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
 
 source ~/.vim/snippets/support_functions.vim
 

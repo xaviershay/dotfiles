@@ -11,5 +11,8 @@ Dir['*'].each do |file|
   else
     target = File.join(home, ".#{file}")
   end
-  `ln -s #{File.expand_path file} #{target}`
+
+  unless File.exists?(target)
+    `ln -s #{File.expand_path file} #{target}`
+  end
 end

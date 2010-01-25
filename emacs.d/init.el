@@ -11,9 +11,10 @@
 (add-to-list 'load-path "~/.emacs.d/")
 
 ; Carbon EMACS
-(mac-key-mode 1)
-(menu-bar-mode 0) 
-(tool-bar-mode 0)
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'mac-key-mode) (mac-key-mode 1))
 (setq mac-option-modifier 'meta) 
 
 (set-default-font

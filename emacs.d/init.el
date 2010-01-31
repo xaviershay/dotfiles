@@ -25,6 +25,8 @@
 (setq inhibit-startup-echo-area-message t)
 
 ; General editing
+(setq tab-width 2)
+
 ; isearch puts cursor at front of search, not in the middle
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
  (defun my-goto-match-beginning ()
@@ -38,17 +40,36 @@
     (color-theme-initialize)
     (color-theme-taylor)
 
+(defun fullscreen (&optional f)
+  (interactive)
+  (set-frame-parameter f 'fullscreen
+    (if (frame-parameter f 'fullscreen) nil 'fullboth)))
+(add-hook 'after-make-frame-functions 'fullscreen)
+
+;; VIM compatibility - need those movement keys!
+(setq viper-mode t)
+(require 'viper)
+(require 'vimpulse)
+
+; This function is broken for me with git, don't need atm
+(defun viper-maybe-checkout (buf) ())
+
 ; Ruby
 (autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby scripts." t)
-(setq auto-mode-alist  (cons '(".rb$" . ruby-mode) auto-mode-alist))
+;; TODO: DRY this up
+(setq auto-mode-alist  (cons '("\\.rb$" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist  (cons '(".rake$" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist  (cons '("^Rakefile$" . ruby-mode) auto-mode-alist))
 
 (setq ruby-mode-hook
     (function (lambda ()
-		(setnu-mode 1)
                 (setq indent-tabs-mode nil)
                 (setq ruby-indent-level 2))))
-(add-hook 'ruby-mode-hook 'turn-on-setnu-mode)
-(require 'setnu)
+
+(setq javascript-mode-hook
+    (function (lambda ()
+                (setq indent-tabs-mode nil)
+                (setq javascript-indent-level 2))))
 
 (eval-after-load 'ruby-mode
   '(progn
@@ -56,8 +77,9 @@
      (setq ruby-use-encoding-map nil)
      (add-hook 'ruby-mode-hook 'inf-ruby-keys)
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-;;     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
-     (define-key ruby-mode-map (kbd "C-c l") "lambda")))
+
+     ;; Ruby mode overrides this with something lame, so define it back
+     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)))
 
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)

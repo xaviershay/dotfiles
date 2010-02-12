@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Formats ruby hashes
+# Formats ruby hashes and assignments
 # a => 1
 # ab => 2
 # abc => 3
@@ -10,28 +10,37 @@
 # ab  => 2
 # abc => 3
 #
+# a = 1
+# ab = 2
+# abc = 3
+#
+# becomes
+# a   = 1
+# ab  = 2
+# abc = 3
+#
 # From github.com/xaviershay/dotfiles
 
-lines = []
-while line = gets
-  lines << line
-end
+OPERATOR_RE = /=>|=/
 
-indent = lines.first.index(/[^\s]/)
+lines    = readlines
+operator = nil
+indent   = lines.first.index(/[^\s]/)
 
 # Massage into an array of [key, value]
-lines.collect! {|line| 
-  line.split('=>').collect {|line| 
-    line.gsub(/^\s*/, '').gsub(/\s*$/, '') 
-  }
-}
+lines.collect! do |line|
+  if line =~ OPERATOR_RE
+    operator ||= $&
+    line.split(operator).map(&:strip)
+  end
+end
 
-max_key_length = lines.collect {|line| line[0].length}.max
+max_key_length = lines.map {|line| line[0].length}.max
 
 # Pad each key with whitespace to match length of longest key
-lines.collect! {|line|
-  line[0] = "%#{indent}s%-#{max_key_length}s" % ['', line[0]]
-  line.join(' => ')
-}
+lines.map! do |line|
+  line[0] = "%#{indent}s%-#{max_key_length}s" % ["", line[0]]
+  line.join(" #{operator} ")
+end
 
 print lines.join("\n")

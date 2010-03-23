@@ -1,12 +1,24 @@
 #!/usr/bin/env ruby
 action = ARGV[0]
+db = ARGV[1]
 
-server = '/usr/local/bin/pg_ctl -D /usr/local/var/postgres'
+server = '/usr/local/bin/pg_ctl'
+
+if db == 'clear'
+  datadir = '/Volumes/clear/pgdata'
+  unless File.exists?(datadir)
+    puts "Cannot access #{datadir}"
+    exit(1)
+  end
+  extra_args = "-D #{datadir}"
+else
+  extra_args = "-D /usr/local/var/postgres"
+end
 
 if action == 'start'
-  cmd = "#{server} -l /usr/local/var/postgres/server.log start"
+  cmd = "#{server} #{extra_args} -l /usr/local/var/postgres/server.log start"
 else
-  cmd = "#{server} stop -s -m fast"
+  cmd = "#{server} #{extra_args} stop -s -m fast"
 end
 
 puts cmd

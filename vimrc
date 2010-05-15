@@ -51,7 +51,7 @@ au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 "Auto strip trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
-source ~/.vim/snippets/support_functions.vim
+"source ~/.vim/snippets/support_functions.vim
 
 set grepprg=ack
 set grepformat=%f:%l:%m

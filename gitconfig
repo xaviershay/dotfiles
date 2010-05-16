@@ -20,7 +20,7 @@
   changed = green
   untracked = cyan
 [core]
-  excludesfile = /Users/xavier/.gitignore
+	excludesfile = /Users/xavier/.gitignore
 [alias]
 	sh = !git-sh
   st = status
@@ -31,6 +31,8 @@
   lg = log -p
   pl = pull --rebase
   up = !sh -c 'git pull --rebase && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
-  
+
 [svn]
   rmdir = true
+[help]
+  autocorrect = 1

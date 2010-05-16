@@ -31,7 +31,8 @@ set ls=2
 vmap o :s/^/# /<CR>
 vmap i :s/^# //<CR>
 
-set guifont=Monaco:h12
+"set guifont=Monaco:h12
+set gfn=Inconsolata:h12
 set vb
 
 set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
@@ -55,4 +56,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 set grepprg=ack
 set grepformat=%f:%l:%m
+let mapleader = ";"
 
+" :W saves with sudo
+command! W w !sudo tee % > /dev/null

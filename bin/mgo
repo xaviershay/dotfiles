@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+`rm /usr/local/var/mongodb/mongod.lock` # Cheat for my dev box coz I don't care
+cmd = "mongod run --config /usr/local/Cellar/mongodb/1.4.2-x86_64/mongod.conf"
+puts cmd
+puts `#{cmd}`
+

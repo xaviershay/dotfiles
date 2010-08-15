@@ -11,7 +11,7 @@ if db == 'clear'
   extra_args = "--datadir #{datadir}"
 end
 
-server = '/usr/local/Cellar/mysql/5.1.41/share/mysql/mysql.server'
+server = '/usr/local/Cellar/mysql/5.1.46/share/mysql/mysql.server'
 cmd = "#{server} #{action} #{extra_args}"
 puts cmd
 puts `#{cmd}`

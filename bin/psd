@@ -1,11 +1,22 @@
 #!/usr/bin/env ruby
+# Start up postgres using a specified data directory. This is handy when
+# you have database files stored on an encryted volume. Create a new data
+# directory with:
+#   initdb -D /path/to/datadir
+#
+# Usage:
+#   psd start # Start with default data directory
+#   psd stop
+#   psd start conversation # Start with a custom data directory
+#   psd stop
+
 action = ARGV[0]
 db = ARGV[1]
 
 server = '/usr/local/bin/pg_ctl'
 
-if db == 'clear'
-  datadir = '/Volumes/clear/pgdata'
+if db == 'conversation'
+  datadir = '/Volumes/conversation/pgdata'
   unless File.exists?(datadir)
     puts "Cannot access #{datadir}"
     exit(1)

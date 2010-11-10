@@ -1,4 +1,4 @@
-require 'spec'
+require 'rspec'
 
 describe 'format_comment_block' do
   it 'aligns all columns to be the same width' do
@@ -29,6 +29,11 @@ describe 'format_comment_block' do
 # vel libero eget lorem semper faucibus. Aenean pretium sagittis molestie.
 # Quisque magna erat, egestas eget adipiscing vel, eleifend eu tortor.
     EOS
+  end
+
+  it 'detects // instead of #' do
+    @input    = "// Hello\n// Hello"
+    @expected = "// Hello Hello\n"
   end
 
   it 'preserves indent, and counts it towards the max width' do

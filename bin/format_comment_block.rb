@@ -12,22 +12,28 @@ end
 
 indent = lines.first.index(/[^\s]/)
 
+comment_char = if lines.any? {|x| x.strip[0..1] == '//'}
+  '//'
+else
+  '#'
+end
+
 # Extract words
 words = lines.collect do |line|
   line.split(/\s+/)
-end.flatten.reject {|x| x.empty? || x == "#" }
+end.flatten.reject {|x| x.empty? || x == comment_char }
 
 words.reverse!
 output = ''
 indent = "%#{indent}s" % ['']
-newline = indent + '#'
+newline = indent + comment_char
 while !words.empty?
   newline << ' ' + words.pop
   if newline.length > 70
     output << newline + "\n"
-    newline = indent + '#'
+    newline = indent + comment_char
   end
 end
-output << newline unless newline == indent + '#'
+output << newline unless newline == indent + comment_char
 
 puts output

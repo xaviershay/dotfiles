@@ -6,7 +6,7 @@ set shiftwidth=2
 set number        " Enable line numbering
 set autoindent    " When you press enter you stay at the current indent
 set wildmode=longest,list " Better tab completion for :e and friends
-colors desert     " totally sexier than white background
+colors peachpuff   " totally sexier than white background
 syn on " I think this is a duplicate of syntax=on above
 
 if $SHELL =~ 'bin/fish'
@@ -32,7 +32,8 @@ vmap o :s/^/# /<CR>
 vmap i :s/^# //<CR>
 
 "set guifont=Monaco:h12
-set gfn=Inconsolata:h12
+set gfn=Monofur:h14
+"set gfn=Inconsolata:h20
 set vb
 
 set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
@@ -49,8 +50,11 @@ au! BufWritePost .vimrc source %
 "Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
 au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 
+" Override default modula2 detection, these files are markdown
+au BufNewFile,BufRead *.md set filetype=markdown
+
 "Auto strip trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\s\+$//e
 
 "source ~/.vim/snippets/support_functions.vim
 
@@ -58,5 +62,18 @@ set grepprg=ack
 set grepformat=%f:%l:%m
 let mapleader = ";"
 
-" :W saves with sudo
-command! W w !sudo tee % > /dev/null
+" :W saves with sudo - seems to be broken tow
+" command! W w !sudo tee % > /dev/null
+
+call pathogen#runtime_append_all_bundles() 
+
+" Not sure why vim-coffee-script doesn't apply this for me
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+
+" For rubyblock text objects
+runtime macros/matchit.vim
+
+
+if has("gui_running")
+  set guioptions=egmrt
+endif

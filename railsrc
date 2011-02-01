@@ -1,10 +1,10 @@
-if RAILS_ENV == "test" && $stdin.tty?
-  require 'redgreen'
-end
-
+#$LOAD_PATH.unshift File.expand_path("~/Code/ex/rails-dev-boost/lib")
+#require 'rails_development_boost'
 require 'hirb'
 
 Hirb.enable :pager => false
+
+Paperclip.options.merge! log_command: true
 
 class BigDecimal
   def inspect
@@ -39,73 +39,23 @@ class Object
       puts value
     end
   end
-end
 
-module Spec
-  module Example
-    module ExampleMethods
-      def execute(run_options, instance_variables) # :nodoc:
-        run_options.reporter.example_started(@_proxy)
-        set_instance_variables_from_hash(instance_variables)
- 
-        execution_error = nil
-        Timeout.timeout(run_options.timeout) do
-          begin
-            before_each_example
-            instance_eval(&@_implementation)
-          rescue Interrupt
-            exit 1
-          rescue Exception => e
-            execution_error ||= e
-          end
-          begin
-            after_each_example
-          rescue Interrupt
-            exit 1
-          rescue Exception => e
-            execution_error ||= e
-          end
+  def tapr(prefix = nil, &block)
+    block ||= lambda {|x| x }
+    tap do |x|
+      value = block[x].hirbify
+
+      buffer = ''
+      if prefix
+        buffer += prefix
+        if value.lines.count > 1
+          buffer += ":\n"
+        else
+          buffer += ": "
         end
- 
-        run_options.reporter.example_finished(@_proxy.update(description), execution_error)
-        success = execution_error.nil? || ExamplePendingError === execution_error
       end
+      buffer += value
+      raise buffer
     end
   end
-end
-
-module Spec
-  module Runner
-    class ExampleGroupRunner
-      def run
-        prepare
-        success = true
-        example_groups.each do |example_group|
-          success = success & example_group.run(@options)
-        end
-        finish
-        success
-      end
-    end
-  end
-end
-
-
-def find_orphaned_records(klass, id)
-  [
-    klass.reflect_on_all_associations(:has_many),
-    klass.reflect_on_all_associations(:has_one)
-  ].flatten.select {|x|
-    !x.options[:as] && !x.options[:through]
-  }.inject({}) {|a, x|
-    records = x.klass.all(:conditions => {
-      x.options[:foreign_key] || "#{klass.to_s.underscore}_id" => id})
-    a.update(x.class_name => records)
-  }
-end
-
-class ActiveRecord::Base
-#  def inspect
-#    "#<#{self.class.to_s} #{id} \"#{to_s}\">"
-#  end
 end

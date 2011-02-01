@@ -1,6 +1,7 @@
 *.swp
 *.swo
 *.DS_Store
+*.rbc
 db/bootstrap/*.sql
 webrat-*.html
 pkg

@@ -48,8 +48,8 @@ max_key_length = lines.map {|line| line[0].length}.max
 
 # Pad each key with whitespace to match length of longest key
 lines.map! do |line|
-  if operator == ':'
-    line[0] = "%#{indent}s%-#{max_key_length + 1}s" % ["", line[0] + operator]
+  if operator =~ /\:(?:\s)/
+    line[0] = "%#{indent}s%-#{max_key_length + 1}s" % ["", line[0] + ':']
     line.join(" ")
   else
     line[0] = "%#{indent}s%-#{max_key_length}s" % ["", line[0]]

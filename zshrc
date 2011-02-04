@@ -12,6 +12,7 @@ PATH=~/bin:$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin
 export HISTSIZE=2000
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
+export NODE_PATH=/usr/local/lib/node/
 
 bindkey -e
 

@@ -3,12 +3,12 @@ require 'rspec'
 describe 'format_hash' do
   it 'aligns all => signs' do
     @input = <<-EOS
-      a => 1
-      ab => 2
+      :a => 1
+      :ab => 2
     EOS
     @expected = <<-EOS
-      a  => 1
-      ab => 2
+      :a  => 1
+      :ab => 2
     EOS
   end
 
@@ -26,7 +26,7 @@ describe 'format_hash' do
   it 'aligns all : signs' do
     @input = <<-EOS
       a: 1
-      b:1
+      b:   1
       ab: 2
     EOS
     @expected = <<-EOS

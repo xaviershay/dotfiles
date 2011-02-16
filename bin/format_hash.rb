@@ -30,7 +30,7 @@
 #
 # From github.com/xaviershay/dotfiles
 
-OPERATOR_RE = /:|=>|=/
+OPERATOR_RE = /:(?=\s)|=>|=/
 
 lines    = readlines
 operator = nil

@@ -1,1 +1,4 @@
 --type-add=ruby=.haml,.rake,.rsel
+--type-add=css=.scss
+--type-add=js=.coffee
+--ignore-dir=coverage

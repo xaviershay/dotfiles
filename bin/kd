@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'kramdown'
+require 'tempfile'
+
+file_name = ARGV[0]
+doc = Kramdown::Document.new(File.open(file_name).read)
+extract_text = lambda {|elem| [elem.type == :text ? elem.value : nil] + elem.children.map(&extract_text) }
+size = extract_text[doc.root].flatten.compact.join(" ").split(/\s+/).size
+
+html = <<-HTML
+  <html>
+  <head>
+    <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+    <!--<link rel='stylesheet' href="http://blogs.sitepoint.com/wp-content/plugins/wp-minify/min/?f=wp-content/themes/sitepoint_2010/style.css,wp-content/themes/sitepoint_2010/blogs-post.css,wp-content/themes/sitepoint_2010/blogs-tables.css,wp-content/plugins/openid/f/openid.css&m=1299799869" />-->
+    <link rel='stylesheet' href="http://blogs.sitepoint.com/rubysource/wp-content/plugins/wp-minify/min/?f=wp-content/themes/rubysource/css/style.css,wp-content/plugins/contact-form-7/styles.css&m=1300947577" />
+  </head>
+  <body class='single'>
+    <div id='content'>
+      <div id='primary-content' class='primary'>
+        <div id='post-content' class='content'>
+          #{doc.to_html}
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
+HTML
+
+outfile = '/tmp/' + ARGV[0] + '.html'
+File.open(outfile, "w") {|f| f.write(html) }
+
+puts "File:  #{outfile}"
+puts "Words: #{size}"

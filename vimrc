@@ -74,7 +74,6 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " For rubyblock text objects
 runtime macros/matchit.vim
 
-
 if has("gui_running")
   set guioptions=egmrt
 endif
@@ -118,3 +117,57 @@ nnoremap <leader><leader> <c-^>
 " Rails specific
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
+
+" Highlight trailing whitespace etc
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+\%#\@<!$/
+
+" Make tabs and trailing spaces visible when requested
+set listchars=tab:>-,trail:·,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+
+" Strip trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Use visual bell instead of beeping.
+set visualbell
+
+" short info tokens, short command line messages, no intro.
+set shortmess=atI
+
+" Disable modelines; not used, risk of security exploits.
+set modelines=0
+
+" Default to Unicode/UTF-8 rather than latin1
+set encoding=utf-8
+
+" Highlight the screen line of the cursor, easier to find the cursor.
+set cursorline
+
+" Terminals are plenty fast these days.
+set ttyfast
+
+" save on losing focus
+autocmd FocusLost \f\+ :wa
+
+" Exit insert mode when Vim loses focus.
+" A bug prevents this from working: autocmd FocusLost * stopinsert
+" See http://stackoverflow.com/questions/2968548
+autocmd! FocusLost * call feedkeys("\<C-\>\<C-n>")
+
+" Quick-edit .vimrc
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" Unbind the cursor keys in insert, normal and visual modes.
+for prefix in ['i', 'n', 'v']
+  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    exe prefix . "noremap " . key . " <Nop>"
+  endfor
+endfor
+
+" Arrow keys navigate split windows!
+nmap <Up> <C-W><Up>
+nmap <Down> <C-W><Down>
+nmap <Left> <C-W><Left>
+nmap <Right> <C-W><Right>

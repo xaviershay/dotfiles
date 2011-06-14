@@ -7,6 +7,8 @@ set number        " Enable line numbering
 set autoindent    " When you press enter you stay at the current indent
 set wildmode=longest,list " Better tab completion for :e and friends
 
+set hidden " for lustyexplorer
+let g:LustyJugglerSuppressRubyWarning = 1
 
 syn on " I think this is a duplicate of syntax=on above
 
@@ -92,3 +94,6 @@ command! Togbg call ToggleBackground()
 nnoremap <F3> :call ToggleBackground()<CR>
 inoremap <F3> <ESC>:call ToggleBackground()<CR>a
 vnoremap <F3> <ESC>:call ToggleBackground()<CR>
+
+map <Leader>e <Leader>lf
+map <Leader>b <Leader>lb

@@ -6,12 +6,9 @@ set shiftwidth=2
 set number        " Enable line numbering
 set autoindent    " When you press enter you stay at the current indent
 set wildmode=longest,list " Better tab completion for :e and friends
-colors peachpuff   " totally sexier than white background
-syn on " I think this is a duplicate of syntax=on above
 
-if $SHELL =~ 'bin/fish'
-    set shell=/bin/sh
-endif
+
+syn on " I think this is a duplicate of syntax=on above
 
 filetype on
 filetype plugin on
@@ -77,3 +74,23 @@ runtime macros/matchit.vim
 if has("gui_running")
   set guioptions=egmrt
 endif
+
+set t_Co=256
+
+set background=dark
+colorscheme solarized
+
+function! ToggleBackground()
+  if (g:solarized_style=="dark")
+    let g:solarized_style="light"
+    colorscheme solarized
+  else
+    let g:solarized_style="dark"
+    colorscheme solarized
+  endif
+endfunction
+
+command! Togbg call ToggleBackground()
+nnoremap <F3> :call ToggleBackground()<CR>
+inoremap <F3> <ESC>:call ToggleBackground()<CR>a
+vnoremap <F3> <ESC>:call ToggleBackground()<CR>

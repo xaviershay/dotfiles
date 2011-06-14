@@ -27,6 +27,7 @@ set ls=2
 
 vmap o :s/^/# /<CR>
 vmap i :s/^# //<CR>
+vmap ;h :s/:\(\w*\)\s*=> /\1: /g<CR>
 
 "set guifont=Monaco:h12
 set gfn=Monofur:h14

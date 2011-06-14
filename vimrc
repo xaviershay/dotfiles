@@ -49,6 +49,7 @@ au! BufWritePost .vimrc source %
 
 "Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
 au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
+au BufRead,BufNewFile Isolate set filetype=ruby
 
 " Override default modula2 detection, these files are markdown
 au BufNewFile,BufRead *.md set filetype=markdown
@@ -100,6 +101,9 @@ vnoremap <F3> <ESC>:call ToggleBackground()<CR>
 
 map <Leader>e <Leader>lf
 map <Leader>b <Leader>lb
+
+" C style for ruby codes
+au FileType c setl ts=4 sw=4 noexpandtab
 
 set winwidth=84
 " We have to have a winheight bigger than we want to set winminheight. But if

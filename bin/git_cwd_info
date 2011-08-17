@@ -26,5 +26,5 @@ def git_cwd_dirty
 end
 
 if in_git_repo
-  puts " %{\e[0;90m%}#{git_parse_branch}#{git_cwd_dirty}%{\e[0m%}"
+  puts " %{\e[0;33m%}#{git_parse_branch}#{git_cwd_dirty}%{\e[0m%}"
 end

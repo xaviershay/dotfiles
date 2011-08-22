@@ -1,8 +1,8 @@
 #!/bin/sh
 breakchars="(){}[],^%$#@\"\";:''|\\"
-CLOJURE_DIR=$(brew --cellar)/clojure/1.1.0
+CLOJURE_DIR=$(brew --cellar)/clojure/1.2.1
 CLOJURE_JAR=$CLOJURE_DIR/clojure.jar
-CONTRIB_JAR=$(brew --cellar)/clojure-contrib/1.1.0/clojure-contrib.jar
+CONTRIB_JAR=$(brew --cellar)/clojure-contrib/1.2.0/clojure-contrib.jar
 CLOJURE_CP=$CLOJURE_JAR:$CONTRIB_JAR:$PWD
 
 if [ -f .clojure ]; then

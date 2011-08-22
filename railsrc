@@ -58,4 +58,23 @@ class Object
       raise buffer
     end
   end
+
+  def tapl(prefix = nil, &block)
+    block ||= lambda {|x| x }
+    tap do |x|
+      value = block[x].hirbify
+
+      buffer = ''
+      if prefix
+        buffer += prefix
+        if value.lines.count > 1
+          buffer += ":\n"
+        else
+          buffer += ": "
+        end
+      end
+      buffer += value
+      Rails.logger.info buffer
+    end
+  end
 end

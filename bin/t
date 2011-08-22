@@ -1,8 +1,0 @@
-#!/Users/xavier/.rvm/rubies/ruby-1.9.2-p0/bin/ruby
-
-$LOAD_PATH.unshift "/Users/xavier/.rvm/gems/ruby-1.9.2-p0/gems/xtdo-0.2.1/lib"
-
-require 'xtdo'
-file = ENV['XTDO_PATH'] || "~/.xtdo"
-result = Xtdo.run file, ARGV.join(" ")
-puts result if result && result.is_a?(String) && result.length > 0

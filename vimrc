@@ -1,7 +1,10 @@
+call pathogen#runtime_append_all_bundles() 
+
 set nocp          " Disable vi compatibility, for vim-specific awesomeness
-set syntax=on     " Enable syntax highlighting
+"set syntax=on     " Enable syntax highlighting
 set expandtab     " Expand tabs to spaces
 set tabstop=2
+set bs=2          " Fix backspace key to work under screen
 set shiftwidth=2
 set number        " Enable line numbering
 set autoindent    " When you press enter you stay at the current indent
@@ -10,10 +13,9 @@ set wildmode=longest,list " Better tab completion for :e and friends
 set hidden " for lustyexplorer
 let g:LustyJugglerSuppressRubyWarning = 1
 
-syn on " I think this is a duplicate of syntax=on above
+syntax on " I think this is a duplicate of syntax=on above
 
-filetype on
-filetype plugin on
+filetype plugin indent on
 
 "Disable help key coz I mash it when I try to hit Esc
 map <F1> <Esc>
@@ -50,9 +52,11 @@ au! BufWritePost .vimrc source %
 "Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
 au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
 au BufRead,BufNewFile Isolate set filetype=ruby
+au BufRead,BufNewFile config.ru set filetype=ruby
 
 " Override default modula2 detection, these files are markdown
 au BufNewFile,BufRead *.md set filetype=markdown
+
 
 "Auto strip trailing whitespace
 "autocmd BufWritePre * :%s/\s\+$//e
@@ -62,14 +66,17 @@ au BufNewFile,BufRead *.md set filetype=markdown
 set grepprg=ack
 set grepformat=%f:%l:%m
 let mapleader = ";"
+let maplocalleader = ","
 
 " :W saves with sudo - seems to be broken tow
 " command! W w !sudo tee % > /dev/null
 
-call pathogen#runtime_append_all_bundles() 
-
-" Not sure why vim-coffee-script doesn't apply this for me
-autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+let vimfiles=$HOME . "/.vim"
+let sep=":"
+let vimclojureRoot = vimfiles."/bundle/vimclojure-2.2.0"
+let vimclojure#ParenRainbow = 1
+let vimclojure#WantNailgun = 0
+let classpath = join( [".", "src", "src/main/clojure", "src/main/resources", "test", "src/test/clojure", "src/test/resources", "classes", "target/classes", "lib/*", "lib/dev/*", "bin", vimfiles."/lib/*" ], sep)
 
 " For rubyblock text objects
 runtime macros/matchit.vim
@@ -143,21 +150,15 @@ set modelines=0
 set encoding=utf-8
 
 " Highlight the screen line of the cursor, easier to find the cursor.
-set cursorline
+"set cursorline
 
 " Terminals are plenty fast these days.
 set ttyfast
-
-" save on losing focus
-autocmd FocusLost \f\+ :wa
 
 " Exit insert mode when Vim loses focus.
 " A bug prevents this from working: autocmd FocusLost * stopinsert
 " See http://stackoverflow.com/questions/2968548
 autocmd! FocusLost * call feedkeys("\<C-\>\<C-n>")
-
-" Quick-edit .vimrc
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Unbind the cursor keys in insert, normal and visual modes.
 for prefix in ['i', 'n', 'v']
@@ -171,3 +172,8 @@ nmap <Up> <C-W><Up>
 nmap <Down> <C-W><Down>
 nmap <Left> <C-W><Left>
 nmap <Right> <C-W><Right>
+
+if has("mouse")
+	set mouse=a
+	set mousehide
+endif

@@ -15,6 +15,9 @@ export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 export NODE_PATH=/usr/local/lib/node/
 
+export JAVA_OPTS='-d32'
+export JRUBY_OPTS=''
+
 bindkey -e
 
 export TERM EDITOR PAGER GEM_HOME GEM_PATH RUBY_FFI_NCURSES_LIB RUBYOPT NODE_PATH

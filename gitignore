@@ -1,5 +1,8 @@
+*.gem
+*.rbx
 *.swp
 *.swo
+*.swn
 *.DS_Store
 *.rbc
 db/bootstrap/*.sql

@@ -89,23 +89,10 @@ endif
 
 set t_Co=256
 
-set background=dark
+set background=light
 colorscheme solarized
 
-function! ToggleBackground()
-  if (g:solarized_style=="dark")
-    let g:solarized_style="light"
-    colorscheme solarized
-  else
-    let g:solarized_style="dark"
-    colorscheme solarized
-  endif
-endfunction
-
-command! Togbg call ToggleBackground()
-nnoremap <F3> :call ToggleBackground()<CR>
-inoremap <F3> <ESC>:call ToggleBackground()<CR>a
-vnoremap <F3> <ESC>:call ToggleBackground()<CR>
+call togglebg#map("<F3>")
 
 map <Leader>e <Leader>lf
 map <Leader>b <Leader>lb
@@ -114,18 +101,14 @@ map <Leader>b <Leader>lb
 au FileType c setl ts=4 sw=4 noexpandtab
 
 set winwidth=84
-" We have to have a winheight bigger than we want to set winminheight. But if
-" we set winheight to be huge before winminheight, the winminheight set will
-" fail.
-set winheight=5
-set winminheight=5
-set winheight=999
 
 nnoremap <leader><leader> <c-^>
 
 " Rails specific
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
+
+map <leader>s :w\|:call Send_to_Tmux("!!\n")<CR>
 
 " Highlight trailing whitespace etc
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen

@@ -9,6 +9,8 @@ set shiftwidth=2
 set number        " Enable line numbering
 set autoindent    " When you press enter you stay at the current indent
 set wildmode=longest,list " Better tab completion for :e and friends
+set wildignore=*.rbc,.git,*.o,*.gem
+set history=100   " Default is 20, not enough.
 
 set hidden " for lustyexplorer
 let g:LustyJugglerSuppressRubyWarning = 1
@@ -177,3 +179,7 @@ if has("mouse")
 	set mouse=a
 	set mousehide
 endif
+
+imap <Nul> <Esc>:w<CR>
+
+set colorcolumn=80

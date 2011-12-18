@@ -15,6 +15,9 @@ export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 export NODE_PATH=/usr/local/lib/node/
 
+export JAVA_OPTS='-d32'
+export JRUBY_OPTS=''
+
 bindkey -e
 
 export TERM EDITOR PAGER GEM_HOME GEM_PATH RUBY_FFI_NCURSES_LIB RUBYOPT NODE_PATH
@@ -64,8 +67,7 @@ export DM_DB_USER=xavier
 export DM_DB_PASSWORD=
 export DM_DEV_ROOT=/Users/xavier/Code/ex/dm-dev
 
-export XTDO_PATH="~/Dropbox/xtdo.yml"
-export XTDOHS_PATH="/Users/xavier/Dropbox/xtdo-hs.yml"
+export XTDOHS_PATH="/Users/xavier/.xtdo.yml"
 
 autoload -U compinit
 compinit
@@ -112,5 +114,3 @@ unsetopt auto_name_dirs
 function title() {
   echo "\033]0;$1\007"
 }
-
-xtdo-hs l

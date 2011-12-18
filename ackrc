@@ -1,4 +1,7 @@
 --type-add=ruby=.haml,.rake,.rsel
 --type-add=css=.scss
 --type-add=js=.coffee
+--type-set=puppet=.pp
+--type-set=cucumber=.feature
+--type-set=sass=.sass,.scss
 --ignore-dir=coverage

@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+ARGF.each do |line|
+  puts line.gsub(/^(\s)+/) {|x| "_" * x.length }
+end

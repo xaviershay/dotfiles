@@ -1,5 +1,4 @@
 call pathogen#runtime_append_all_bundles()
-
 set nocp          " Disable vi compatibility, for vim-specific awesomeness
 set expandtab     " Expand tabs to spaces
 set tabstop=2
@@ -10,10 +9,61 @@ set autoindent    " When you press enter you stay at the current indent
 set wildmode=longest,list " Better tab completion for :e and friends
 set wildignore=*.rbc,.git,*.o,*.gem
 set history=100   " Default is 20, not enough.
+set ls=2          " Always display a status line
+
+set visualbell     " Use visual bell instead of beeping.
+set shortmess=atI  " short info tokens, short command line messages, no intro.
+set modelines=0    " Disable modelines; not used, risk of security exploits.
+set encoding=utf-8 " Default to Unicode/UTF-8 rather than latin1
+set ttyfast        " Terminals are plenty fast these days.
+
+set winwidth=81    " Ideal minimum window width of 80 chars
+
+set gfn=Monofur:h14
 
 syntax on
 
 filetype plugin indent on
+
+if has("mouse")
+	set mouse=a
+	set mousehide
+endif
+
+set colorcolumn=80
+
+" Store temporary files in a central spot
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+" Use ack for grepping
+set grepprg=ack
+set grepformat=%f:%l:%m
+
+" These leaders work better with Colemak
+let mapleader = ";"
+let maplocalleader = ","
+
+" Solarized color scheme
+if has("gui_running")
+  set guioptions=egmrt
+endif
+
+set t_Co=256
+
+set background=dark
+colorscheme solarized
+
+function! ToggleBackground()
+  if (g:solarized_style=="dark")
+    let g:solarized_style="light"
+    colorscheme solarized
+  else
+    let g:solarized_style="dark"
+    colorscheme solarized
+  endif
+endfunction
 
 "Disable help key coz I mash it when I try to hit Esc
 map <F1> <Esc>
@@ -22,19 +72,19 @@ imap <F1> <Esc>
 vmap <F2> !format_hash.rb<CR>
 vmap <F4> !format_cucumber_table.rb<CR>
 
-set ls=2
-
+" Comment/uncomment ruby code
 vmap o :s/^/# /<CR>
 vmap i :s/^# //<CR>
+
+" Convert old style ruby hashes to new style
 vmap ;h :s/:\(\w*\)\s*=> /\1: /g<CR>
 
+" Expands to directory of current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-
-set gfn=Monofur:h14
-set vb
 
 set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 
+" Bind tab to shift between buffers
 nmap <tab> :bn<cr>
 nmap <s-tab> :bp<cr>
 
@@ -66,11 +116,6 @@ augroup vimrcEx
 
 augroup END
 
-set grepprg=ack
-set grepformat=%f:%l:%m
-let mapleader = ";"
-let maplocalleader = ","
-
 let vimfiles=$HOME . "/.vim"
 let sep=":"
 let vimclojureRoot = vimfiles."/bundle/vimclojure-2.2.0"
@@ -85,8 +130,6 @@ command! Togbg call ToggleBackground()
 nnoremap <F3> :call ToggleBackground()<CR>
 inoremap <F3> <ESC>:call ToggleBackground()<CR>a
 vnoremap <F3> <ESC>:call ToggleBackground()<CR>
-
-set winwidth=84
 
 nnoremap <leader><leader> <c-^>
 
@@ -106,39 +149,12 @@ nmap <silent> <leader>s :set nolist!<CR>
 " Strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Use visual bell instead of beeping.
-set visualbell
-
-" short info tokens, short command line messages, no intro.
-set shortmess=atI
-
-" Disable modelines; not used, risk of security exploits.
-set modelines=0
-
-" Default to Unicode/UTF-8 rather than latin1
-set encoding=utf-8
-
-" Terminals are plenty fast these days.
-set ttyfast
-
 " Unbind the cursor keys in insert, normal and visual modes.
 for prefix in ['i', 'n', 'v']
   for key in ['<Up>', '<Down>', '<Left>', '<Right>']
     exe prefix . "noremap " . key . " <Nop>"
   endfor
 endfor
-
-if has("mouse")
-	set mouse=a
-	set mousehide
-endif
-
-set colorcolumn=80
-
-" Store temporary files in a central spot
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 function! RenameFile()
     let old_name = expand('%')

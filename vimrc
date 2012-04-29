@@ -157,11 +157,11 @@ for prefix in ['i', 'n', 'v']
   endfor
 endfor
 
-" Arrow keys navigate split windows!
-nmap <Up> <C-W><Up>
-nmap <Down> <C-W><Down>
-nmap <Left> <C-W><Left>
-nmap <Right> <C-W><Right>
+" Disable arrow keys
+map <Left> :echo "no!"<cr>
+map <Right> :echo "no!"<cr>
+map <Up> :echo "no!"<cr>
+map <Down> :echo "no!"<cr>
 
 if has("mouse")
 	set mouse=a

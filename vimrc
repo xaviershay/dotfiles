@@ -63,18 +63,10 @@ augroup vimrcEx
   autocmd! FocusLost * call feedkeys("\<C-\>\<C-n>")
 augroup END
 
-"Auto strip trailing whitespace
-"autocmd BufWritePre * :%s/\s\+$//e
-
-"source ~/.vim/snippets/support_functions.vim
-
 set grepprg=ack
 set grepformat=%f:%l:%m
 let mapleader = ";"
 let maplocalleader = ","
-
-" :W saves with sudo - seems to be broken tow
-" command! W w !sudo tee % > /dev/null
 
 let vimfiles=$HOME . "/.vim"
 let sep=":"

@@ -1,7 +1,6 @@
-call pathogen#runtime_append_all_bundles() 
+call pathogen#runtime_append_all_bundles()
 
 set nocp          " Disable vi compatibility, for vim-specific awesomeness
-"set syntax=on     " Enable syntax highlighting
 set expandtab     " Expand tabs to spaces
 set tabstop=2
 set bs=2          " Fix backspace key to work under screen
@@ -12,7 +11,7 @@ set wildmode=longest,list " Better tab completion for :e and friends
 set wildignore=*.rbc,.git,*.o,*.gem
 set history=100   " Default is 20, not enough.
 
-syntax on " I think this is a duplicate of syntax=on above
+syntax on
 
 filetype plugin indent on
 
@@ -32,9 +31,7 @@ vmap ;h :s/:\(\w*\)\s*=> /\1: /g<CR>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
-"set guifont=Monaco:h12
 set gfn=Monofur:h14
-"set gfn=Inconsolata:h20
 set vb
 
 set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
@@ -144,9 +141,6 @@ set modelines=0
 " Default to Unicode/UTF-8 rather than latin1
 set encoding=utf-8
 
-" Highlight the screen line of the cursor, easier to find the cursor.
-"set cursorline
-
 " Terminals are plenty fast these days.
 set ttyfast
 
@@ -156,12 +150,6 @@ for prefix in ['i', 'n', 'v']
     exe prefix . "noremap " . key . " <Nop>"
   endfor
 endfor
-
-" Disable arrow keys
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
 
 if has("mouse")
 	set mouse=a

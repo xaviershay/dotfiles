@@ -81,32 +81,10 @@ let classpath = join( [".", "src", "src/main/clojure", "src/main/resources", "te
 " For rubyblock text objects
 runtime macros/matchit.vim
 
-if has("gui_running")
-  set guioptions=egmrt
-endif
-
-set t_Co=256
-
-set background=dark
-colorscheme solarized
-
-function! ToggleBackground()
-  if (g:solarized_style=="dark")
-    let g:solarized_style="light"
-    colorscheme solarized
-  else
-    let g:solarized_style="dark"
-    colorscheme solarized
-  endif
-endfunction
-
 command! Togbg call ToggleBackground()
 nnoremap <F3> :call ToggleBackground()<CR>
 inoremap <F3> <ESC>:call ToggleBackground()<CR>a
 vnoremap <F3> <ESC>:call ToggleBackground()<CR>
-
-map <Leader>e <Leader>lf
-map <Leader>b <Leader>lb
 
 set winwidth=84
 

@@ -1,4 +1,8 @@
 call pathogen#runtime_append_all_bundles()
+
+""""""""""""""""""""""
+" Basic configuration
+"
 set nocp          " Disable vi compatibility, for vim-specific awesomeness
 set expandtab     " Expand tabs to spaces
 set tabstop=2
@@ -10,6 +14,7 @@ set wildmode=longest,list " Better tab completion for :e and friends
 set wildignore=*.rbc,.git,*.o,*.gem
 set history=100   " Default is 20, not enough.
 set ls=2          " Always display a status line
+set colorcolumn=80 " Vertical bar at 80 chars
 
 set visualbell     " Use visual bell instead of beeping.
 set shortmess=atI  " short info tokens, short command line messages, no intro.
@@ -25,12 +30,11 @@ syntax on
 
 filetype plugin indent on
 
+" Mouse is useful for scrolling and selection in some cases
 if has("mouse")
 	set mouse=a
 	set mousehide
 endif
-
-set colorcolumn=80
 
 " Store temporary files in a central spot
 set backup
@@ -45,7 +49,10 @@ set grepformat=%f:%l:%m
 let mapleader = ";"
 let maplocalleader = ","
 
-" Solarized color scheme
+
+""""""""""""""""
+" PRETTY COLORS
+"
 if has("gui_running")
   set guioptions=egmrt
 endif
@@ -65,9 +72,60 @@ function! ToggleBackground()
   endif
 endfunction
 
-"Disable help key coz I mash it when I try to hit Esc
+command! Togbg call ToggleBackground()
+nnoremap <F3> :call ToggleBackground()<CR>
+inoremap <F3> <ESC>:call ToggleBackground()<CR>a
+vnoremap <F3> <ESC>:call ToggleBackground()<CR>
+
+
+"""""""""""""""""""""""
+" GENERIC KEY BINDINGS
+"
+
+" Disable help key coz I mash it when I try to hit Esc
 map <F1> <Esc>
 imap <F1> <Esc>
+
+" Expands to directory of current file
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
+" Bind tab to shift between buffers
+nmap <tab> :bn<cr>
+nmap <s-tab> :bp<cr>
+
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+" Strip trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Unbind the cursor keys in insert, normal and visual modes.
+for prefix in ['i', 'n', 'v']
+  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    exe prefix . "noremap " . key . " <Nop>"
+  endfor
+endfor
+
+
+"""""""
+" TMUX
+"
+
+" Requires tslime.vim
+map <leader>s :w\|:call Send_to_Tmux("!!\n")<CR>
+
+
+"""""""
+" RUBY
+"
 
 vmap <F2> !format_hash.rb<CR>
 vmap <F4> !format_cucumber_table.rb<CR>
@@ -79,16 +137,48 @@ vmap i :s/^# //<CR>
 " Convert old style ruby hashes to new style
 vmap ;h :s/:\(\w*\)\s*=> /\1: /g<CR>
 
-" Expands to directory of current file
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
+" Rails specific
+map <leader>gr :topleft :split config/routes.rb<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+function! PromoteToLet()
+  :normal! dd
+  " :exec '?^\s*it\>'
+  :normal! P
+  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+  :normal ==
+endfunction
+:command! PromoteToLet :call PromoteToLet()
+:map <leader>p :PromoteToLet<cr>
+
+
+""""""""""
+" CLOJURE
+"
+let vimfiles=$HOME . "/.vim"
+let sep=":"
+let vimclojureRoot = vimfiles."/bundle/vimclojure-2.2.0"
+let vimclojure#ParenRainbow = 1
+let vimclojure#WantNailgun = 0
+let classpath = join( [".", "src", "src/main/clojure", "src/main/resources", "test", "src/test/clojure", "src/test/resources", "classes", "target/classes", "lib/*", "lib/dev/*", "bin", vimfiles."/lib/*" ], sep)
+
+"""""""""""
+" LILYPOND
+"
 
 set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
 
-" Bind tab to shift between buffers
-nmap <tab> :bn<cr>
-nmap <s-tab> :bp<cr>
+"""""""""""""""""""""""""""""
+" HIGHLIGHTING AND FILE TYPES
+"
+
+" Highlight trailing whitespace etc
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+\%#\@<!$/
 
 augroup vimrcEx
+  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
   "Auto reload this file when editing it
   au! BufWritePost .vimrc source %
 
@@ -115,64 +205,3 @@ augroup vimrcEx
     \ endif
 
 augroup END
-
-let vimfiles=$HOME . "/.vim"
-let sep=":"
-let vimclojureRoot = vimfiles."/bundle/vimclojure-2.2.0"
-let vimclojure#ParenRainbow = 1
-let vimclojure#WantNailgun = 0
-let classpath = join( [".", "src", "src/main/clojure", "src/main/resources", "test", "src/test/clojure", "src/test/resources", "classes", "target/classes", "lib/*", "lib/dev/*", "bin", vimfiles."/lib/*" ], sep)
-
-" For rubyblock text objects
-runtime macros/matchit.vim
-
-command! Togbg call ToggleBackground()
-nnoremap <F3> :call ToggleBackground()<CR>
-inoremap <F3> <ESC>:call ToggleBackground()<CR>a
-vnoremap <F3> <ESC>:call ToggleBackground()<CR>
-
-nnoremap <leader><leader> <c-^>
-
-" Rails specific
-map <leader>gr :topleft :split config/routes.rb<cr>
-map <leader>gg :topleft 100 :split Gemfile<cr>
-
-" Highlight trailing whitespace etc
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+\%#\@<!$/
-
-" Make tabs and trailing spaces visible when requested
-set listchars=tab:>-,trail:·,eol:$
-nmap <silent> <leader>s :set nolist!<CR>
-
-" Strip trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-" Unbind the cursor keys in insert, normal and visual modes.
-for prefix in ['i', 'n', 'v']
-  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    exe prefix . "noremap " . key . " <Nop>"
-  endfor
-endfor
-
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>n :call RenameFile()<cr>
-
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-:command! PromoteToLet :call PromoteToLet()
-:map <leader>p :PromoteToLet<cr>

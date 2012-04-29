@@ -6,9 +6,7 @@ GEM_PATH=/usr/local/Cellar/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Ve
 RUBY_FFI_NCURSES_LIB=libncurses
 NODE_PATH=/Users/xavier/Code/node/
 
-PATH=~/bin:$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:~/.cabal/bin
-PATH=/usr/local/Cellar/python/2.7.2/bin:$PATH
-PATH=/usr/local/Cellar/vim/7.3.266/bin:$PATH
+PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:~/.cabal/bin:$PATH
 
 export HISTSIZE=2000
 export HISTFILE="$HOME/.zhistory"
@@ -114,3 +112,5 @@ function title() {
 }
 
 xtdo-hs l
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -42,17 +42,26 @@ set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/cu
 nmap <tab> :bn<cr>
 nmap <s-tab> :bp<cr>
 
-"Auto reload this file when editing it
-au! BufWritePost .vimrc source %
+augroup vimrcEx
+  "Auto reload this file when editing it
+  au! BufWritePost .vimrc source %
 
-"Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
-au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
-au BufRead,BufNewFile Isolate set filetype=ruby
-au BufRead,BufNewFile config.ru set filetype=ruby
+  "Add rails filetype to all ruby files, need to find a way to limit to just rails files maybe
+  au BufRead,BufNewFile *.rb set filetype=ruby.rails.rspec
+  au BufRead,BufNewFile Isolate set filetype=ruby
+  au BufRead,BufNewFile config.ru set filetype=ruby
 
-" Override default modula2 detection, these files are markdown
-au BufNewFile,BufRead *.md set filetype=markdown
+  " Override default modula2 detection, these files are markdown
+  au BufNewFile,BufRead *.md set filetype=markdown
 
+  " C style for ruby codes
+  au FileType c setl ts=4 sw=4 noexpandtab
+
+  " Exit insert mode when Vim loses focus.
+  " A bug prevents this from working: autocmd FocusLost * stopinsert
+  " See http://stackoverflow.com/questions/2968548
+  autocmd! FocusLost * call feedkeys("\<C-\>\<C-n>")
+augroup END
 
 "Auto strip trailing whitespace
 "autocmd BufWritePre * :%s/\s\+$//e
@@ -104,9 +113,6 @@ vnoremap <F3> <ESC>:call ToggleBackground()<CR>
 map <Leader>e <Leader>lf
 map <Leader>b <Leader>lb
 
-" C style for ruby codes
-au FileType c setl ts=4 sw=4 noexpandtab
-
 set winwidth=84
 
 nnoremap <leader><leader> <c-^>
@@ -144,11 +150,6 @@ set encoding=utf-8
 
 " Terminals are plenty fast these days.
 set ttyfast
-
-" Exit insert mode when Vim loses focus.
-" A bug prevents this from working: autocmd FocusLost * stopinsert
-" See http://stackoverflow.com/questions/2968548
-autocmd! FocusLost * call feedkeys("\<C-\>\<C-n>")
 
 " Unbind the cursor keys in insert, normal and visual modes.
 for prefix in ['i', 'n', 'v']

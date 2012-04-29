@@ -12,17 +12,9 @@ html = <<-HTML
   <html>
   <head>
     <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
-    <!--<link rel='stylesheet' href="http://blogs.sitepoint.com/wp-content/plugins/wp-minify/min/?f=wp-content/themes/sitepoint_2010/style.css,wp-content/themes/sitepoint_2010/blogs-post.css,wp-content/themes/sitepoint_2010/blogs-tables.css,wp-content/plugins/openid/f/openid.css&m=1299799869" />-->
-    <link rel='stylesheet' href="http://blogs.sitepoint.com/rubysource/wp-content/plugins/wp-minify/min/?f=wp-content/themes/rubysource/css/style.css,wp-content/plugins/contact-form-7/styles.css&m=1300947577" />
   </head>
-  <body class='single'>
-    <div id='content'>
-      <div id='primary-content' class='primary'>
-        <div id='post-content' class='content'>
-          #{doc.to_html}
-        </div>
-      </div>
-    </div>
+  <body style='width: 700px'>
+    #{doc.to_html}
   </body>
   </html>
 HTML

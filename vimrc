@@ -21,7 +21,6 @@ imap <F1> <Esc>
 
 vmap <F2> !format_hash.rb<CR>
 vmap <F4> !format_cucumber_table.rb<CR>
-vmap <F5> !format_comment_block.rb<CR>
 
 set ls=2
 

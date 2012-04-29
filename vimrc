@@ -61,6 +61,13 @@ augroup vimrcEx
   " A bug prevents this from working: autocmd FocusLost * stopinsert
   " See http://stackoverflow.com/questions/2968548
   autocmd! FocusLost * call feedkeys("\<C-\>\<C-n>")
+
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
 augroup END
 
 set grepprg=ack

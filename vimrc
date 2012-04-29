@@ -9,9 +9,8 @@ set shiftwidth=2
 set number        " Enable line numbering
 set autoindent    " When you press enter you stay at the current indent
 set wildmode=longest,list " Better tab completion for :e and friends
-
-set hidden " for lustyexplorer
-let g:LustyJugglerSuppressRubyWarning = 1
+set wildignore=*.rbc,.git,*.o,*.gem
+set history=100   " Default is 20, not enough.
 
 syntax on " I think this is a duplicate of syntax=on above
 

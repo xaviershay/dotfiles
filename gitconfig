@@ -22,15 +22,13 @@
 [core]
 	excludesfile = /Users/xavier/.gitignore
 [alias]
-	sh = !git-sh
-  st = status
-  ci = commit
-  br = branch
-  co = checkout
-  df = diff
-  lg = log -p
-  pl = pull --rebase
-  up = !sh -c 'git pull --rebase && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+  l = log --graph --abbrev-commit --date=relative
+  r = !git l -20
+  ra = !git r --all
+  noff = merge --no-ff
+  amend = commit --amend
+[format]
+  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 
 [svn]
   rmdir = true

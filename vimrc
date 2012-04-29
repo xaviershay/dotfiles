@@ -43,9 +43,6 @@ set runtimepath+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/cu
 nmap <tab> :bn<cr>
 nmap <s-tab> :bp<cr>
 
-"Highlight long lines as an error
-"autocmd FileType ruby match Error /\%100v.\+/
-
 "Auto reload this file when editing it
 au! BufWritePost .vimrc source %
 
@@ -171,3 +168,5 @@ if has("mouse")
 	set mouse=a
 	set mousehide
 endif
+
+set colorcolumn=80

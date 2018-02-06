@@ -100,7 +100,7 @@ setopt hist_ignore_dups
 bindkey '^R' history-incremental-search-backward
 
 project_pwd() {
-  echo $PWD | sed -e "s/\/Users\/$USER/~/" -e "s/~\/Code\/me\/\([^\/]*\)/\\1/"
+  echo $PWD | sed -e "s/\/Users\/$USER/~/" -e "s/\/home\/$USER/~/" -e "s/~\/Code\/me\/\([^\/]*\)/\\1/"
 }
 
 export PROMPT=$'%{\e[0;%(?.32.31)m%}>%{\e[0m%} '

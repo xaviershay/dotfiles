@@ -1,4 +1,4 @@
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 
 """"""""""""""""""""""
 " Basic configuration
@@ -59,7 +59,7 @@ endif
 
 set t_Co=256
 
-set background=dark
+set background=light
 colorscheme solarized
 
 call togglebg#map("<F3>")

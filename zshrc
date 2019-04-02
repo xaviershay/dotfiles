@@ -1,8 +1,8 @@
 EDITOR=vim
 PAGER=less
 
-GEM_HOME=/usr/local/Cellar/Gems/1.8
-GEM_PATH=/usr/local/Cellar/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/gems
+# GEM_HOME=/usr/local/Cellar/Gems/1.8
+# GEM_PATH=/usr/local/Cellar/Gems/1.8:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/gems
 RUBY_FFI_NCURSES_LIB=libncurses
 NODE_PATH=/Users/xavier/Code/node/
 
@@ -13,12 +13,9 @@ export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=$HISTSIZE
 export NODE_PATH=/usr/local/lib/node/
 
-export JAVA_OPTS='-d32'
-export JRUBY_OPTS=''
-
 bindkey -e
 
-export TERM EDITOR PAGER GEM_HOME GEM_PATH RUBY_FFI_NCURSES_LIB RUBYOPT NODE_PATH
+export TERM EDITOR PAGER RUBY_FFI_NCURSES_LIB RUBYOPT NODE_PATH
 
 alias tmux="TERM=screen-256color tmux"
 # alias v='~/bin/mvim'

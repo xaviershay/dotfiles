@@ -17,7 +17,6 @@ bindkey -e
 
 export TERM EDITOR PAGER RUBY_FFI_NCURSES_LIB RUBYOPT NODE_PATH
 
-alias tmux="TERM=screen-256color tmux"
 # alias v='~/bin/mvim'
 alias v='vim'
 alias t='~/.cabal/bin/xtdo-hs'
